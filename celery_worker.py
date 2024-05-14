@@ -2,6 +2,8 @@ import asyncio
 import io
 import os
 from datetime import datetime, timezone
+from dotenv import load_dotenv  # type: ignore
+load_dotenv()
 
 from celery.schedules import crontab
 from celery_config import celery

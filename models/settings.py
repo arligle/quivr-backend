@@ -164,7 +164,9 @@ def get_embeddings():
             base_url=settings.ollama_api_base_url,
         )  # pyright: ignore reportPrivateUsage=none
     else:
-        embeddings = OpenAIEmbeddings()  # pyright: ignore reportPrivateUsage=none
+        embeddings = OpenAIEmbeddings(
+            base_url="https://aishell.work/v1",
+        )  # pyright: ignore reportPrivateUsage=none
     return embeddings
 
 

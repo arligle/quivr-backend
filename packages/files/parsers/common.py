@@ -23,7 +23,7 @@ async def process_file(
     neurons = Neurons()
 
     file.compute_documents(loader_class)
-
+    print(f"File documents: {file.documents}")
     metadata = {
         "file_sha1": file.file_sha1,
         "file_size": file.file_size,
@@ -46,16 +46,17 @@ async def process_file(
             doc.page_content = f"Filename: {new_metadata['original_file_name']} Content: {doc.page_content}"
 
             doc.page_content = doc.page_content.replace("\u0000", "")
+            print(f"替换0000: {doc.page_content}")
             # Replace unsupported Unicode characters
-            doc.page_content = re.sub(r"[^\x00-\x7F]+", " ", doc.page_content)
-
+            # doc.page_content = re.sub(r"[^\x00-\x7F]+", " ", doc.page_content)
+            print(f"替换unicode: {doc.page_content}")
             len_chunk = len(enc.encode(doc.page_content))
 
             # Ensure the text is in UTF-8
-            doc.page_content = doc.page_content.encode("utf-8", "replace").decode(
+            doc.page_content = doc.page_content.encode("utf-8", "ignore").decode(
                 "utf-8"
             )
-
+            print(f"替换编码: {doc.page_content}")
             new_metadata["chunk_size"] = len_chunk
             doc_with_metadata = DocumentSerializable(
                 page_content=doc.page_content, metadata=new_metadata

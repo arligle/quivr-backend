@@ -70,9 +70,9 @@ def main(
     score = evaluate(
         response_dataset,
         metrics=ragas_metrics,
-        llm=ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0.1),
+        llm=ChatOpenAI(base_url="https://aishell.work/v1", model="gpt-3.5-turbo-0125", temperature=0.1),
         embeddings=LangchainEmbeddingsWrapper(
-            OpenAIEmbeddings(model="text-embedding-3-large", dimensions=1536)
+            OpenAIEmbeddings(base_url="https://aishell.work/v1", model="text-embedding-3-large", dimensions=1536)
         ),
     ).to_pandas()
 

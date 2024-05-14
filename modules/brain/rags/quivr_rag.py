@@ -126,7 +126,7 @@ class QuivrRAG(BaseModel):
                 base_url=self.brain_settings.ollama_api_base_url
             )  # pyright: ignore reportPrivateUsage=none
         else:
-            return OpenAIEmbeddings()
+            return OpenAIEmbeddings(base_url="https://aishell.work/v1")
 
     def prompt_to_use(self):
         if self.brain_id and is_valid_uuid(self.brain_id):
@@ -333,6 +333,7 @@ class QuivrRAG(BaseModel):
 
             # And finally, we do the part that returns the answers
             llm_function = ChatOpenAI(
+                base_url="https://aishell.work/v1",
                 max_tokens=self.max_tokens,
                 model=self.model,
                 temperature=self.temperature,
